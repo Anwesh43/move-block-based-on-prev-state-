@@ -8,12 +8,14 @@ export const useAnimatedScale = () => {
     const [animated, setAnimated] = useState(false)
     const [i, setI] = useState(0)
     return {
+        i,
         scale, 
         start() {
             if (!animated) {
                 setAnimated(true)
                 let currScale = scale 
                 const interval = setInterval(() => {
+                    //console.log(currScale)
                     setScale(prevScale => prevScale + scGap)
                     currScale += scGap 
                     if (currScale > 1) {
@@ -22,7 +24,7 @@ export const useAnimatedScale = () => {
                         setAnimated(false)
                         setI(i + 1)
                     }
-                })
+                }, delay)
             }
         }
     }
@@ -52,6 +54,7 @@ export const useStyle = (i, w, h, scale) => {
     const size = 0.2 * Math.min(w, h)
     const position = 'absolute'
     const left = `${i * w / 10 + w * 0.1 * scale}px`
+    console.log(left)
     const top = `${h - size}px`
     const width = `${size}px`
     const height = `${size}px`
