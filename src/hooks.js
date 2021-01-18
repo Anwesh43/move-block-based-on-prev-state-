@@ -6,6 +6,7 @@ const delay = 20
 export const useAnimatedScale = () => {
     const [scale, setScale] = useState(0)
     const [animated, setAnimated] = useState(false)
+    const [i, setI] = useState(0)
     return {
         scale, 
         start() {
@@ -19,6 +20,7 @@ export const useAnimatedScale = () => {
                         clearInterval(interval)
                         setScale(0)
                         setAnimated(false)
+                        setI(i + 1)
                     }
                 })
             }
@@ -36,12 +38,30 @@ export const useDimension = () => {
         }
         return () => {
             window.onresize = () => {
-                
+
             }
         }
     })
     return {
         w, 
         h
+    }
+}
+
+export const useStyle = (i, w, h, scale) => {
+    const size = 0.2 * Math.min(w, h)
+    const position = 'absolute'
+    const left = `${i * w / 10 + w * 0.1 * scale}px`
+    const top = `${h - size}px`
+    const width = `${size}px`
+    const height = `${size}px`
+    const background = 'indigo'
+    return {
+        width, 
+        height, 
+        position, 
+        left, 
+        top,
+        background
     }
 }
